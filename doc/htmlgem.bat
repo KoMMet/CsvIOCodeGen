@@ -1,0 +1,1 @@
+asciidoctor -r  asciidoctor-pdf-cjk -r asciidoctor-diagram simpleDesign.adoc

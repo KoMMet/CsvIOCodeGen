@@ -1,0 +1,109 @@
+:lang: ja
+:toc: left
+:toclevels: 3
+:doctype: Article
+:toc-title: 目次
+:sectnums:
+:sectnumlevels: 4
+:sectlinks:
+:imagesdir: ./images
+:stylesdir: ./css
+:stylesheet: asciidoctor-default.css
+:pdf-style: themes/default-theme.yml
+:icons: font
+:source-highlighter: coderay
+:example-caption: 例
+:table-caption: 表
+:figure-caption: 図
+:docname: = CsvIOCodeGen設計
+:author: KoMMet
+:revnumber: 0.1
+
+= CsvIOCodeGen設計
+
+== 本書について
+
+CsvIOCodeGemの概要について記載する
+
+[[can_asciidoc]]
+== CsvIOCodeGemとは
+
+CsvIOCodeGem(以降、本アプリ)はCSVファイルを読み込み、読み込んだCSVファイルを読み書きするソースファイルを作成するCLIアプリである。
+
+インプット::
+CSVファイル
+アウトプット::
+ソースファイル
+
+
+== フォルダ構成
+ 
+本アプリにCSVを読ませた場合
+
+ .(current)
+ │  CsvIOCodeGen.exe
+ │  
+ └─out
+        source.cs
+
+== 使い方
+----
+CsvIOCodeGen.exe test.csv
+----
+
+== 本アプリが対応するCSVファイルの形式
+* #から始まる行はコメント
+* 1行目からデータ（ヘッダーなし）
+* データの形式
+** 整数
+** 少数
+
+== アウトプットされるコードの仕様
+
+=== 概要
+* アウトプットファイルは1つ
+* package(namespace)名は「defaultspace」
+* パブリッククラスは
+** データクラス
+** 読み込みクラス
+** 書き込みクラス
+
+[cols="2,2a,5a", options="header"]
+.クラス
+|===
+|アクセス権|クラス名|説明
+.4+|Public
+|CsvData|データクラス
+|CsvFileReader|ファイルを読み込み、リポジトリに追加する
+|CsvfileWriter|リポジトリクラスの情報からファイルに書き出す
+|CsvRepositry|データクラスを格納するリポジトリクラス。
+
+各データに対する操作を提供する
+|===
+
+=== 機能
+* CSV読み込み
+* CSV書き込み
+
+=== クラス設計
+[plantuml]
+----
+CsvRepositry *-- CsvData
+CsvRepositry -l- CsvFileReader : Add <
+CsvRepositry -r- CsvFileWriter : Get <
+----
+== TBDとか
+
+* 色々な形式のCSVに対応したい
+** 1行目ヘッダー
+** ""で囲んでるけど数字
+** 途中からコメント
+*** 1,2,3#ここからコメントが入る
+* 色々な言語で出力したい
+** Nimとかいいかも
+* これ応用してDBのCRUDとかできる？
+** 意味ないし面倒なきがする
+*** EntityFrameWorkでいいね
+*** C#以外ならワンチャンか？Nimとか
+* **基本的に全部TBD**
+

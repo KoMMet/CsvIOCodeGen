@@ -1,0 +1,5 @@
+@startuml
+CsvRepositry *-- CsvData
+CsvRepositry -l- CsvFileReader : Add <
+CsvRepositry -r- CsvFileWriter : Get <
+@enduml
