@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CsvIOCodeGen": {
+      "commandName": "Project",
+      "commandLineArgs": "case1.csv"
+    }
+  }
+}

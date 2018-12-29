@@ -53,10 +53,13 @@ CsvIOCodeGen.exe test.csv
 
 == 本アプリが対応するCSVファイルの形式
 * #から始まる行はコメント
-* 1行目からデータ（ヘッダーなし）
 * データの形式
 ** 整数
 ** 少数
+* 先頭行のパターン
+** ただのコメント
+** カラム名
+** データ行（ヘッダーなしCSV）
 
 == アウトプットされるコードの仕様
 
@@ -64,6 +67,7 @@ CsvIOCodeGen.exe test.csv
 * アウトプットファイルは1つ
 * package(namespace)名は「defaultspace」
 * パブリッククラスは
+** リポジトリクラス
 ** データクラス
 ** 読み込みクラス
 ** 書き込みクラス
@@ -84,6 +88,8 @@ CsvIOCodeGen.exe test.csv
 === 機能
 * CSV読み込み
 * CSV書き込み
+* データクラスにCSVの情報を集約
+* 行単位でアクセス
 
 === クラス設計
 [plantuml]
@@ -106,4 +112,3 @@ CsvRepositry -r- CsvFileWriter : Get <
 *** EntityFrameWorkでいいね
 *** C#以外ならワンチャンか？Nimとか
 * **基本的に全部TBD**
-
